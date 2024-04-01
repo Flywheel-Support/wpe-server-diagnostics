@@ -3,8 +3,8 @@
 OUTPUT_FOLDER="_wpeprivate"
 OUTPUT_FILE="trafficanalyzer.txt"
 
-# Get the installation name from command-line argument
-INSTALL_NAME=$1
+# Ask the user to enter the installation name
+read -p "Please enter install name: " INSTALL_NAME
 
 # Ensure that the installation name is provided
 if [ -z "$INSTALL_NAME" ]; then
