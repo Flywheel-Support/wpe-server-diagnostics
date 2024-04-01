@@ -3,14 +3,15 @@
 OUTPUT_FOLDER="_wpeprivate"
 OUTPUT_FILE="trafficanalyzer.txt"
 
-# Ask the user to enter the installation name
-read -p "Please enter install name: " INSTALL_NAME
+# Get the installation name from command-line argument
+INSTALL_NAME=$1
 
-# Ensure INSTALL_NAME is not empty
+# Ensure that the installation name is provided
 if [ -z "$INSTALL_NAME" ]; then
     echo "Installation name cannot be empty. Exiting..."
     exit 1
 fi
+
 
 {
 echo "Top 10 User Agents:"
@@ -23,10 +24,6 @@ zcat -f "/var/log/fpm/${INSTALL_NAME}.access.log" "/var/log/fpm/${INSTALL_NAME}.
 echo ""
 echo "Requests hour by hour:"
 zcat -f "/var/log/fpm/${INSTALL_NAME}.access.log" "/var/log/fpm/${INSTALL_NAME}.access.log.1" 2>/dev/null | awk '{print substr($4, 14, 2)}' | sort | uniq -c
-
-echo ""
-echo "10x errors hour by hour:"
-zcat -f "/var/log/fpm/${INSTALL_NAME}.access.log" "/var/log/fpm/${INSTALL_NAME}.access.log.1" 2>/dev/null | awk '$9 ~ /^50/ {print substr($4, 14, 2)}' | sort | uniq -c
 
 echo ""
 echo "Top 10 User Agents:"
