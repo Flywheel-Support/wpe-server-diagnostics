@@ -1,6 +1,5 @@
 #!/bin/bash
 
-OUTPUT_FOLDER="_wpeprivate"
 OUTPUT_FILE="trafficanalyzer.txt"
 
 # Ask the user to enter the installation name
@@ -42,4 +41,4 @@ echo "Top 10 POST requests:"
 zcat -f "/var/log/fpm/${INSTALL_NAME}.access.log" "/var/log/fpm/${INSTALL_NAME}.access.log.1" 2>/dev/null | awk '$6 == "\"POST" {print $7}' | sort | uniq -c | sort -rn | head -n 10
 } > "$OUTPUT_FOLDER/$OUTPUT_FILE"
 
-cat "$OUTPUT_FOLDER/$OUTPUT_FILE"
+cat "$OUTPUT_FILE"
